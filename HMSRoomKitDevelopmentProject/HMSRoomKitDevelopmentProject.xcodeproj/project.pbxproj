@@ -11,13 +11,11 @@
 		875F3A642AB19E7300904307 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F3A632AB19E7300904307 /* ContentView.swift */; };
 		875F3A662AB19E7500904307 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 875F3A652AB19E7500904307 /* Assets.xcassets */; };
 		875F3A692AB19E7500904307 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 875F3A682AB19E7500904307 /* Preview Assets.xcassets */; };
-		875F3A712AB19EA800904307 /* HMSRoomKit in Frameworks */ = {isa = PBXBuildFile; productRef = 875F3A702AB19EA800904307 /* HMSRoomKit */; };
 		875F3BB82AB1A12E00904307 /* JoiningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F3BB72AB1A12E00904307 /* JoiningView.swift */; };
 		875F3BC02AB1A2CA00904307 /* HMSRoomKitPreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F3BBF2AB1A2CA00904307 /* HMSRoomKitPreviewApp.swift */; };
 		875F3BC22AB1A2CA00904307 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F3BC12AB1A2CA00904307 /* ContentView.swift */; };
 		875F3BC42AB1A2CB00904307 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 875F3BC32AB1A2CB00904307 /* Assets.xcassets */; };
 		875F3BC72AB1A2CB00904307 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 875F3BC62AB1A2CB00904307 /* Preview Assets.xcassets */; };
-		875F3D192AB1A40A00904307 /* HMSRoomKit in Frameworks */ = {isa = PBXBuildFile; productRef = 875F3D182AB1A40A00904307 /* HMSRoomKit */; };
 		875F3F632AB1A5EF00904307 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 875F3EB22AB1A5EF00904307 /* Media.xcassets */; };
 		875F3F642AB1A5EF00904307 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 875F3EB22AB1A5EF00904307 /* Media.xcassets */; };
 		875F3F652AB1A5EF00904307 /* HMSRoomKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F3EB42AB1A5EF00904307 /* HMSRoomKit.swift */; };
@@ -312,51 +310,61 @@
 		875F40862AB1A5EF00904307 /* HMSUIColorTheme-extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F3F612AB1A5EF00904307 /* HMSUIColorTheme-extension.swift */; };
 		875F40872AB1A5EF00904307 /* HMSRoomKit.docc in Sources */ = {isa = PBXBuildFile; fileRef = 875F3F622AB1A5EF00904307 /* HMSRoomKit.docc */; };
 		875F40882AB1A5EF00904307 /* HMSRoomKit.docc in Sources */ = {isa = PBXBuildFile; fileRef = 875F3F622AB1A5EF00904307 /* HMSRoomKit.docc */; };
-		875F409E2AB1A5F900904307 /* HMSChatModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408A2AB1A5F900904307 /* HMSChatModels.swift */; };
 		875F409F2AB1A5F900904307 /* HMSChatModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408A2AB1A5F900904307 /* HMSChatModels.swift */; };
-		875F40A02AB1A5F900904307 /* HMSTrackModel-Base-Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408B2AB1A5F900904307 /* HMSTrackModel-Base-Actions.swift */; };
 		875F40A12AB1A5F900904307 /* HMSTrackModel-Base-Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408B2AB1A5F900904307 /* HMSTrackModel-Base-Actions.swift */; };
-		875F40A22AB1A5F900904307 /* HMSRoomModel-Higher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408C2AB1A5F900904307 /* HMSRoomModel-Higher.swift */; };
 		875F40A32AB1A5F900904307 /* HMSRoomModel-Higher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408C2AB1A5F900904307 /* HMSRoomModel-Higher.swift */; };
-		875F40A42AB1A5F900904307 /* HMSRoomModel-Base-Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408D2AB1A5F900904307 /* HMSRoomModel-Base-Actions.swift */; };
 		875F40A52AB1A5F900904307 /* HMSRoomModel-Base-Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408D2AB1A5F900904307 /* HMSRoomModel-Base-Actions.swift */; };
-		875F40A62AB1A5F900904307 /* HMSTrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408E2AB1A5F900904307 /* HMSTrackModel.swift */; };
 		875F40A72AB1A5F900904307 /* HMSTrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408E2AB1A5F900904307 /* HMSTrackModel.swift */; };
-		875F40A82AB1A5F900904307 /* HMSPeerModel-Higher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408F2AB1A5F900904307 /* HMSPeerModel-Higher.swift */; };
 		875F40A92AB1A5F900904307 /* HMSPeerModel-Higher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408F2AB1A5F900904307 /* HMSPeerModel-Higher.swift */; };
-		875F40AA2AB1A5F900904307 /* HMSPeerModel-Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40902AB1A5F900904307 /* HMSPeerModel-Base.swift */; };
 		875F40AB2AB1A5F900904307 /* HMSPeerModel-Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40902AB1A5F900904307 /* HMSPeerModel-Base.swift */; };
-		875F40AC2AB1A5F900904307 /* HMSRoomModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40912AB1A5F900904307 /* HMSRoomModels.swift */; };
 		875F40AD2AB1A5F900904307 /* HMSRoomModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40912AB1A5F900904307 /* HMSRoomModels.swift */; };
-		875F40AE2AB1A5F900904307 /* HMSRoomOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40922AB1A5F900904307 /* HMSRoomOptions.swift */; };
 		875F40AF2AB1A5F900904307 /* HMSRoomOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40922AB1A5F900904307 /* HMSRoomOptions.swift */; };
-		875F40B02AB1A5F900904307 /* HMSPeerModel-Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40932AB1A5F900904307 /* HMSPeerModel-Preview.swift */; };
 		875F40B12AB1A5F900904307 /* HMSPeerModel-Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40932AB1A5F900904307 /* HMSPeerModel-Preview.swift */; };
-		875F40B22AB1A5F900904307 /* HMSPeerModel-Internal-updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40942AB1A5F900904307 /* HMSPeerModel-Internal-updates.swift */; };
 		875F40B32AB1A5F900904307 /* HMSPeerModel-Internal-updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40942AB1A5F900904307 /* HMSPeerModel-Internal-updates.swift */; };
-		875F40B42AB1A5F900904307 /* HMSRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40952AB1A5F900904307 /* HMSRoomModel.swift */; };
 		875F40B52AB1A5F900904307 /* HMSRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40952AB1A5F900904307 /* HMSRoomModel.swift */; };
-		875F40B62AB1A5F900904307 /* SessionMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40962AB1A5F900904307 /* SessionMetadata.swift */; };
 		875F40B72AB1A5F900904307 /* SessionMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40962AB1A5F900904307 /* SessionMetadata.swift */; };
-		875F40B82AB1A5F900904307 /* HMSRoomModel-Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40972AB1A5F900904307 /* HMSRoomModel-Base.swift */; };
 		875F40B92AB1A5F900904307 /* HMSRoomModel-Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40972AB1A5F900904307 /* HMSRoomModel-Base.swift */; };
-		875F40BA2AB1A5F900904307 /* HMSRoomModel-Internal-updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40982AB1A5F900904307 /* HMSRoomModel-Internal-updates.swift */; };
 		875F40BB2AB1A5F900904307 /* HMSRoomModel-Internal-updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40982AB1A5F900904307 /* HMSRoomModel-Internal-updates.swift */; };
-		875F40BC2AB1A5F900904307 /* HMSRoomModel-Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40992AB1A5F900904307 /* HMSRoomModel-Preview.swift */; };
 		875F40BD2AB1A5F900904307 /* HMSRoomModel-Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40992AB1A5F900904307 /* HMSRoomModel-Preview.swift */; };
-		875F40BE2AB1A5F900904307 /* PeerMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F409A2AB1A5F900904307 /* PeerMetadata.swift */; };
 		875F40BF2AB1A5F900904307 /* PeerMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F409A2AB1A5F900904307 /* PeerMetadata.swift */; };
-		875F40C02AB1A5F900904307 /* HMSRoomModel-Internal-Callbacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F409B2AB1A5F900904307 /* HMSRoomModel-Internal-Callbacks.swift */; };
 		875F40C12AB1A5F900904307 /* HMSRoomModel-Internal-Callbacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F409B2AB1A5F900904307 /* HMSRoomModel-Internal-Callbacks.swift */; };
-		875F40C22AB1A5F900904307 /* HMSPeerModel-Base-Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F409C2AB1A5F900904307 /* HMSPeerModel-Base-Actions.swift */; };
 		875F40C32AB1A5F900904307 /* HMSPeerModel-Base-Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F409C2AB1A5F900904307 /* HMSPeerModel-Base-Actions.swift */; };
-		875F40C42AB1A5F900904307 /* HMSPeerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F409D2AB1A5F900904307 /* HMSPeerModel.swift */; };
 		875F40C52AB1A5F900904307 /* HMSPeerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F409D2AB1A5F900904307 /* HMSPeerModel.swift */; };
 		875F40CC2AB1AA4D00904307 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875F40CB2AB1AA4D00904307 /* ReplayKit.framework */; };
 		875F40CF2AB1AA4D00904307 /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40CE2AB1AA4D00904307 /* SampleHandler.swift */; };
 		875F40D32AB1AA4D00904307 /* Screenshare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 875F40CA2AB1AA4D00904307 /* Screenshare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		875F40DA2AB1AA6800904307 /* HMSBroadcastExtensionSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 875F40D92AB1AA6800904307 /* HMSBroadcastExtensionSDK */; };
 		875F40DC2AB1AA7000904307 /* HMSBroadcastExtensionSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 875F40DB2AB1AA7000904307 /* HMSBroadcastExtensionSDK */; };
+		91BB70622AB3056C00E7A83A /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = 91BB70612AB3056C00E7A83A /* WebRTC */; };
+		91BB70642AB305A000E7A83A /* HMSSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BB70632AB305A000E7A83A /* HMSSDK.xcframework */; };
+		91BB70652AB305A000E7A83A /* HMSSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 91BB70632AB305A000E7A83A /* HMSSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		91BB70732AB306C300E7A83A /* HMSRoomModels.docc in Sources */ = {isa = PBXBuildFile; fileRef = 91BB70722AB306C300E7A83A /* HMSRoomModels.docc */; };
+		91BB70742AB306C300E7A83A /* HMSRoomModels.h in Headers */ = {isa = PBXBuildFile; fileRef = 91BB70712AB306C300E7A83A /* HMSRoomModels.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		91BB70772AB306C300E7A83A /* HMSRoomModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BB706F2AB306C300E7A83A /* HMSRoomModels.framework */; };
+		91BB70782AB306C300E7A83A /* HMSRoomModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 91BB706F2AB306C300E7A83A /* HMSRoomModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		91BB707D2AB306DB00E7A83A /* HMSPeerModel-Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40932AB1A5F900904307 /* HMSPeerModel-Preview.swift */; };
+		91BB707E2AB306DB00E7A83A /* HMSTrackModel-Base-Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408B2AB1A5F900904307 /* HMSTrackModel-Base-Actions.swift */; };
+		91BB707F2AB306DB00E7A83A /* HMSPeerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F409D2AB1A5F900904307 /* HMSPeerModel.swift */; };
+		91BB70802AB306DB00E7A83A /* HMSRoomModel-Internal-Callbacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F409B2AB1A5F900904307 /* HMSRoomModel-Internal-Callbacks.swift */; };
+		91BB70812AB306DB00E7A83A /* HMSPeerModel-Internal-updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40942AB1A5F900904307 /* HMSPeerModel-Internal-updates.swift */; };
+		91BB70822AB306DB00E7A83A /* HMSRoomOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40922AB1A5F900904307 /* HMSRoomOptions.swift */; };
+		91BB70832AB306DB00E7A83A /* HMSRoomModel-Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40972AB1A5F900904307 /* HMSRoomModel-Base.swift */; };
+		91BB70842AB306DB00E7A83A /* HMSRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40952AB1A5F900904307 /* HMSRoomModel.swift */; };
+		91BB70852AB306DB00E7A83A /* HMSChatModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408A2AB1A5F900904307 /* HMSChatModels.swift */; };
+		91BB70862AB306DB00E7A83A /* SessionMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40962AB1A5F900904307 /* SessionMetadata.swift */; };
+		91BB70872AB306DB00E7A83A /* HMSPeerModel-Base-Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F409C2AB1A5F900904307 /* HMSPeerModel-Base-Actions.swift */; };
+		91BB70882AB306DB00E7A83A /* HMSRoomModel-Base-Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408D2AB1A5F900904307 /* HMSRoomModel-Base-Actions.swift */; };
+		91BB70892AB306DB00E7A83A /* PeerMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F409A2AB1A5F900904307 /* PeerMetadata.swift */; };
+		91BB708A2AB306DB00E7A83A /* HMSRoomModel-Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40992AB1A5F900904307 /* HMSRoomModel-Preview.swift */; };
+		91BB708B2AB306DB00E7A83A /* HMSRoomModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40912AB1A5F900904307 /* HMSRoomModels.swift */; };
+		91BB708C2AB306DB00E7A83A /* HMSPeerModel-Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40902AB1A5F900904307 /* HMSPeerModel-Base.swift */; };
+		91BB708D2AB306DB00E7A83A /* HMSRoomModel-Higher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408C2AB1A5F900904307 /* HMSRoomModel-Higher.swift */; };
+		91BB708E2AB306DB00E7A83A /* HMSTrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408E2AB1A5F900904307 /* HMSTrackModel.swift */; };
+		91BB708F2AB306DB00E7A83A /* HMSPeerModel-Higher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F408F2AB1A5F900904307 /* HMSPeerModel-Higher.swift */; };
+		91BB70902AB306DB00E7A83A /* HMSRoomModel-Internal-updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F40982AB1A5F900904307 /* HMSRoomModel-Internal-updates.swift */; };
+		91BB70932AB307E800E7A83A /* HMSHLSPlayerSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 91BB70922AB307E800E7A83A /* HMSHLSPlayerSDK */; };
+		91BB70962AB3087A00E7A83A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 91BB70952AB3087A00E7A83A /* Lottie */; };
+		91BB70992AB308C000E7A83A /* Popovers in Frameworks */ = {isa = PBXBuildFile; productRef = 91BB70982AB308C000E7A83A /* Popovers */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -366,6 +374,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 875F40C92AB1AA4D00904307;
 			remoteInfo = Screenshare;
+		};
+		91BB70752AB306C300E7A83A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 875F3A562AB19E7300904307 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 91BB706E2AB306C300E7A83A;
+			remoteInfo = HMSRoomModels;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -379,6 +394,18 @@
 				875F40D32AB1AA4D00904307 /* Screenshare.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91BB70662AB305A000E7A83A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				91BB70782AB306C300E7A83A /* HMSRoomModels.framework in Embed Frameworks */,
+				91BB70652AB305A000E7A83A /* HMSSDK.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -568,6 +595,10 @@
 		875F40CE2AB1AA4D00904307 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
 		875F40D02AB1AA4D00904307 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		875F40DD2AB1AA9B00904307 /* HMSRoomKitDevelopment.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HMSRoomKitDevelopment.entitlements; sourceTree = "<group>"; };
+		91BB70632AB305A000E7A83A /* HMSSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = HMSSDK.xcframework; path = ../../../BrytecamFramework/output/HMSSDK/HMSSDK.xcframework; sourceTree = "<group>"; };
+		91BB706F2AB306C300E7A83A /* HMSRoomModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HMSRoomModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		91BB70712AB306C300E7A83A /* HMSRoomModels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMSRoomModels.h; sourceTree = "<group>"; };
+		91BB70722AB306C300E7A83A /* HMSRoomModels.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = HMSRoomModels.docc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -576,7 +607,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				875F40DA2AB1AA6800904307 /* HMSBroadcastExtensionSDK in Frameworks */,
-				875F3A712AB19EA800904307 /* HMSRoomKit in Frameworks */,
+				91BB70642AB305A000E7A83A /* HMSSDK.xcframework in Frameworks */,
+				91BB70932AB307E800E7A83A /* HMSHLSPlayerSDK in Frameworks */,
+				91BB70622AB3056C00E7A83A /* WebRTC in Frameworks */,
+				91BB70992AB308C000E7A83A /* Popovers in Frameworks */,
+				91BB70772AB306C300E7A83A /* HMSRoomModels.framework in Frameworks */,
+				91BB70962AB3087A00E7A83A /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,7 +620,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				875F3D192AB1A40A00904307 /* HMSRoomKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -594,6 +629,13 @@
 			files = (
 				875F40DC2AB1AA7000904307 /* HMSBroadcastExtensionSDK in Frameworks */,
 				875F40CC2AB1AA4D00904307 /* ReplayKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91BB706C2AB306C300E7A83A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,6 +650,7 @@
 				875F3A602AB19E7300904307 /* HMSRoomKitDevelopment */,
 				875F3BBE2AB1A2CA00904307 /* HMSRoomKitPreview */,
 				875F40CD2AB1AA4D00904307 /* Screenshare */,
+				91BB70702AB306C300E7A83A /* HMSRoomModels */,
 				875F3A5F2AB19E7300904307 /* Products */,
 				875F3D172AB1A40A00904307 /* Frameworks */,
 			);
@@ -619,6 +662,7 @@
 				875F3A5E2AB19E7300904307 /* HMSRoomKitDevelopment.app */,
 				875F3BBD2AB1A2CA00904307 /* HMSRoomKitPreview.app */,
 				875F40CA2AB1AA4D00904307 /* Screenshare.appex */,
+				91BB706F2AB306C300E7A83A /* HMSRoomModels.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -666,6 +710,7 @@
 		875F3D172AB1A40A00904307 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				91BB70632AB305A000E7A83A /* HMSSDK.xcframework */,
 				875F40CB2AB1AA4D00904307 /* ReplayKit.framework */,
 			);
 			name = Frameworks;
@@ -1088,7 +1133,27 @@
 			path = Screenshare;
 			sourceTree = "<group>";
 		};
+		91BB70702AB306C300E7A83A /* HMSRoomModels */ = {
+			isa = PBXGroup;
+			children = (
+				91BB70712AB306C300E7A83A /* HMSRoomModels.h */,
+				91BB70722AB306C300E7A83A /* HMSRoomModels.docc */,
+			);
+			path = HMSRoomModels;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		91BB706A2AB306C300E7A83A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91BB70742AB306C300E7A83A /* HMSRoomModels.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		875F3A5D2AB19E7300904307 /* HMSRoomKitDevelopment */ = {
@@ -1099,16 +1164,21 @@
 				875F3A5B2AB19E7300904307 /* Frameworks */,
 				875F3A5C2AB19E7300904307 /* Resources */,
 				875F40D42AB1AA4D00904307 /* Embed Foundation Extensions */,
+				91BB70662AB305A000E7A83A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				875F40D22AB1AA4D00904307 /* PBXTargetDependency */,
+				91BB70762AB306C300E7A83A /* PBXTargetDependency */,
 			);
 			name = HMSRoomKitDevelopment;
 			packageProductDependencies = (
-				875F3A702AB19EA800904307 /* HMSRoomKit */,
 				875F40D92AB1AA6800904307 /* HMSBroadcastExtensionSDK */,
+				91BB70612AB3056C00E7A83A /* WebRTC */,
+				91BB70922AB307E800E7A83A /* HMSHLSPlayerSDK */,
+				91BB70952AB3087A00E7A83A /* Lottie */,
+				91BB70982AB308C000E7A83A /* Popovers */,
 			);
 			productName = HMSRoomKitDevelopmentProject;
 			productReference = 875F3A5E2AB19E7300904307 /* HMSRoomKitDevelopment.app */;
@@ -1128,7 +1198,6 @@
 			);
 			name = HMSRoomKitPreview;
 			packageProductDependencies = (
-				875F3D182AB1A40A00904307 /* HMSRoomKit */,
 			);
 			productName = HMSRoomKitPreview;
 			productReference = 875F3BBD2AB1A2CA00904307 /* HMSRoomKitPreview.app */;
@@ -1154,6 +1223,24 @@
 			productReference = 875F40CA2AB1AA4D00904307 /* Screenshare.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		91BB706E2AB306C300E7A83A /* HMSRoomModels */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91BB70792AB306C300E7A83A /* Build configuration list for PBXNativeTarget "HMSRoomModels" */;
+			buildPhases = (
+				91BB706A2AB306C300E7A83A /* Headers */,
+				91BB706B2AB306C300E7A83A /* Sources */,
+				91BB706C2AB306C300E7A83A /* Frameworks */,
+				91BB706D2AB306C300E7A83A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HMSRoomModels;
+			productName = HMSRoomModels;
+			productReference = 91BB706F2AB306C300E7A83A /* HMSRoomModels.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1173,6 +1260,9 @@
 					875F40C92AB1AA4D00904307 = {
 						CreatedOnToolsVersion = 15.0;
 					};
+					91BB706E2AB306C300E7A83A = {
+						CreatedOnToolsVersion = 14.3;
+					};
 				};
 			};
 			buildConfigurationList = 875F3A592AB19E7300904307 /* Build configuration list for PBXProject "HMSRoomKitDevelopmentProject" */;
@@ -1185,8 +1275,11 @@
 			);
 			mainGroup = 875F3A552AB19E7300904307;
 			packageReferences = (
-				875F3A6F2AB19EA800904307 /* XCRemoteSwiftPackageReference "100ms-roomkit-ios" */,
 				875F40D82AB1AA6800904307 /* XCRemoteSwiftPackageReference "100ms-ios-broadcast-sdk" */,
+				91BB70602AB3056C00E7A83A /* XCRemoteSwiftPackageReference "webrtc-ios" */,
+				91BB70912AB307E800E7A83A /* XCRemoteSwiftPackageReference "100ms-ios-hls-sdk" */,
+				91BB70942AB3087A00E7A83A /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				91BB70972AB308C000E7A83A /* XCRemoteSwiftPackageReference "Popovers" */,
 			);
 			productRefGroup = 875F3A5F2AB19E7300904307 /* Products */;
 			projectDirPath = "";
@@ -1195,6 +1288,7 @@
 				875F3A5D2AB19E7300904307 /* HMSRoomKitDevelopment */,
 				875F3BBC2AB1A2CA00904307 /* HMSRoomKitPreview */,
 				875F40C92AB1AA4D00904307 /* Screenshare */,
+				91BB706E2AB306C300E7A83A /* HMSRoomModels */,
 			);
 		};
 /* End PBXProject section */
@@ -1229,6 +1323,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		91BB706D2AB306C300E7A83A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1243,28 +1344,21 @@
 				875F3FA32AB1A5EF00904307 /* HMSBackButtonView.swift in Sources */,
 				875F40392AB1A5EF00904307 /* HMSTopControlStrip.swift in Sources */,
 				875F40092AB1A5EF00904307 /* HMSParticipantCountStatusView.swift in Sources */,
-				875F40C02AB1A5F900904307 /* HMSRoomModel-Internal-Callbacks.swift in Sources */,
-				875F40C22AB1A5F900904307 /* HMSPeerModel-Base-Actions.swift in Sources */,
 				875F40852AB1A5EF00904307 /* HMSUIColorTheme-extension.swift in Sources */,
 				875F40152AB1A5EF00904307 /* HMSBottomChatStrip.swift in Sources */,
 				875F3FD32AB1A5EF00904307 /* HMSShareScreenButton.swift in Sources */,
 				875F3FE72AB1A5EF00904307 /* HMSSwitchCameraButton.swift in Sources */,
 				875F40712AB1A5EF00904307 /* PreviewComponentType.swift in Sources */,
 				875F40412AB1A5EF00904307 /* HMSRoomKitModel.swift in Sources */,
-				875F40BA2AB1A5F900904307 /* HMSRoomModel-Internal-updates.swift in Sources */,
 				875F3FFD2AB1A5EF00904307 /* HMSEndCallOptionPopover.swift in Sources */,
 				875F40472AB1A5EF00904307 /* ConferencingComponentType.swift in Sources */,
-				875F40A82AB1A5F900904307 /* HMSPeerModel-Higher.swift in Sources */,
-				875F40BE2AB1A5F900904307 /* PeerMetadata.swift in Sources */,
 				875F40872AB1A5EF00904307 /* HMSRoomKit.docc in Sources */,
 				875F404F2AB1A5EF00904307 /* HMSMinimizedTile.swift in Sources */,
 				875F3FBB2AB1A5EF00904307 /* HMSLocalScreenShareView.swift in Sources */,
 				875F3F852AB1A5EF00904307 /* ErrorWarningAlertView.swift in Sources */,
 				875F40452AB1A5EF00904307 /* HMSConferenceScreen.swift in Sources */,
 				875F40052AB1A5EF00904307 /* HMSChangeNameView.swift in Sources */,
-				875F40C42AB1A5F900904307 /* HMSPeerModel.swift in Sources */,
 				875F403F2AB1A5EF00904307 /* RoomModelExtension.swift in Sources */,
-				875F40A42AB1A5F900904307 /* HMSRoomModel-Base-Actions.swift in Sources */,
 				875F3F7F2AB1A5EF00904307 /* HMSPrebuiltOptions.swift in Sources */,
 				875F40572AB1A5EF00904307 /* HMSPeerCallLayout.swift in Sources */,
 				875F404D2AB1A5EF00904307 /* HMSRoomKitNotification.swift in Sources */,
@@ -1277,7 +1371,6 @@
 				875F40372AB1A5EF00904307 /* HMSDefaultConferenceScreen.swift in Sources */,
 				875F40252AB1A5EF00904307 /* HMSChatListView.swift in Sources */,
 				875F40792AB1A5EF00904307 /* HMSHLSPlayerView.swift in Sources */,
-				875F40A62AB1A5F900904307 /* HMSTrackModel.swift in Sources */,
 				875F3FF92AB1A5EF00904307 /* EndSessionAlertView.swift in Sources */,
 				875F3F972AB1A5EF00904307 /* HMSEmojiToggleView.swift in Sources */,
 				875F3FBD2AB1A5EF00904307 /* HMSAudioTrackView.swift in Sources */,
@@ -1311,18 +1404,15 @@
 				875F3F832AB1A5EF00904307 /* HMSJoinLabelView.swift in Sources */,
 				875F406F2AB1A5EF00904307 /* HMSPreviewScreen.swift in Sources */,
 				875F40292AB1A5EF00904307 /* HMSSenHMSSendChatField.swift in Sources */,
-				875F409E2AB1A5F900904307 /* HMSChatModels.swift in Sources */,
 				875F3FB32AB1A5EF00904307 /* HMSParticipantNameLabelView.swift in Sources */,
 				875F3F712AB1A5EF00904307 /* HMSDivider.swift in Sources */,
 				875F40032AB1A5EF00904307 /* HMSLeaveCallOptionsView.swift in Sources */,
 				875F40812AB1A5EF00904307 /* HMSUIFontTheme.swift in Sources */,
-				875F40B62AB1A5F900904307 /* SessionMetadata.swift in Sources */,
 				875F40132AB1A5EF00904307 /* HMSChatParticipantToggleView.swift in Sources */,
 				875F400D2AB1A5EF00904307 /* HMSDefaultTileView.swift in Sources */,
 				875F3FB52AB1A5EF00904307 /* HMSPreviewParticipantsLabelView.swift in Sources */,
 				875F3FDB2AB1A5EF00904307 /* HMSParticipantNameLabel.swift in Sources */,
 				875F3FA72AB1A5EF00904307 /* HMSWifiSignalView.swift in Sources */,
-				875F40AE2AB1A5F900904307 /* HMSRoomOptions.swift in Sources */,
 				875F3FCF2AB1A5EF00904307 /* HMSDeviceSettingsSheetView.swift in Sources */,
 				875F40672AB1A5EF00904307 /* HMSPreviewRoleBottomOverlay.swift in Sources */,
 				875F3BB82AB1A12E00904307 /* JoiningView.swift in Sources */,
@@ -1330,11 +1420,8 @@
 				875F400B2AB1A5EF00904307 /* HMSRecordingStatusView.swift in Sources */,
 				875F40432AB1A5EF00904307 /* HMSPeerLayout.swift in Sources */,
 				875F3FC52AB1A5EF00904307 /* HMSSegmentedControl.swift in Sources */,
-				875F40AC2AB1A5F900904307 /* HMSRoomModels.swift in Sources */,
-				875F40B02AB1A5F900904307 /* HMSPeerModel-Preview.swift in Sources */,
 				875F40552AB1A5EF00904307 /* HMSPaginatedBottomTilesView.swift in Sources */,
 				875F40732AB1A5EF00904307 /* HMSInsetPeerTile.swift in Sources */,
-				875F40B22AB1A5F900904307 /* HMSPeerModel-Internal-updates.swift in Sources */,
 				875F3FD72AB1A5EF00904307 /* HMSMicToggle.swift in Sources */,
 				875F3F8F2AB1A5EF00904307 /* HMSChatToggleView.swift in Sources */,
 				875F3F6D2AB1A5EF00904307 /* ArrayExtension.swift in Sources */,
@@ -1345,19 +1432,16 @@
 				875F3FF32AB1A5EF00904307 /* HMSCancelButton.swift in Sources */,
 				875F3FDD2AB1A5EF00904307 /* HMSPeerAudioMuteOptionView.swift in Sources */,
 				875F40312AB1A5EF00904307 /* HMSChatOverlay.swift in Sources */,
-				875F40B82AB1A5F900904307 /* HMSRoomModel-Base.swift in Sources */,
 				875F40612AB1A5EF00904307 /* HMSPreviewBottomOverlay.swift in Sources */,
 				875F3F792AB1A5EF00904307 /* HMSPrebuiltMeetingView.swift in Sources */,
 				875F404B2AB1A5EF00904307 /* HMSNotificationView.swift in Sources */,
 				875F3FE32AB1A5EF00904307 /* HMSPeerVolumeOptionView.swift in Sources */,
-				875F40BC2AB1A5F900904307 /* HMSRoomModel-Preview.swift in Sources */,
 				875F3F7D2AB1A5EF00904307 /* HMSPrebuiltView.swift in Sources */,
 				875F40592AB1A5EF00904307 /* HMSScreenProminenceLayout.swift in Sources */,
 				875F3FE12AB1A5EF00904307 /* HMSScreenShareButton.swift in Sources */,
 				875F407D2AB1A5EF00904307 /* HMSUITheme.swift in Sources */,
 				875F40772AB1A5EF00904307 /* HMSEndCallScreen.swift in Sources */,
 				875F40512AB1A5EF00904307 /* HMSInsetView.swift in Sources */,
-				875F40A02AB1A5F900904307 /* HMSTrackModel-Base-Actions.swift in Sources */,
 				875F3FB92AB1A5EF00904307 /* HMSJoinNameView.swift in Sources */,
 				875F3F6B2AB1A5EF00904307 /* HMSHalfSheet.swift in Sources */,
 				875F3F892AB1A5EF00904307 /* HMSXMarkCircleView.swift in Sources */,
@@ -1366,7 +1450,6 @@
 				875F401F2AB1A5EF00904307 /* HMSRolePicker.swift in Sources */,
 				875F40652AB1A5EF00904307 /* HMSPreviewTopOverlay.swift in Sources */,
 				875F40072AB1A5EF00904307 /* HMSStopRecordingView.swift in Sources */,
-				875F40AA2AB1A5F900904307 /* HMSPeerModel-Base.swift in Sources */,
 				875F40212AB1A5EF00904307 /* HMSChatScreen.swift in Sources */,
 				875F3FA52AB1A5EF00904307 /* HMSWifiSignalView0.swift in Sources */,
 				875F400F2AB1A5EF00904307 /* HMSScreenShareTile.swift in Sources */,
@@ -1375,9 +1458,7 @@
 				875F40112AB1A5EF00904307 /* HMSPreviewTile.swift in Sources */,
 				875F3FD52AB1A5EF00904307 /* HMSPeerOptionsView.swift in Sources */,
 				875F3FD92AB1A5EF00904307 /* HMSMessageOptionsView.swift in Sources */,
-				875F40B42AB1A5F900904307 /* HMSRoomModel.swift in Sources */,
 				875F3F6F2AB1A5EF00904307 /* ImageExtension.swift in Sources */,
-				875F40A22AB1A5F900904307 /* HMSRoomModel-Higher.swift in Sources */,
 				875F3F9D2AB1A5EF00904307 /* HMSScreenToggleView.swift in Sources */,
 				875F3FA92AB1A5EF00904307 /* HMSWifiSignalView2.swift in Sources */,
 				875F406D2AB1A5EF00904307 /* HMSPermissionDenialScreen.swift in Sources */,
@@ -1589,6 +1670,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		91BB706B2AB306C300E7A83A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91BB70832AB306DB00E7A83A /* HMSRoomModel-Base.swift in Sources */,
+				91BB70902AB306DB00E7A83A /* HMSRoomModel-Internal-updates.swift in Sources */,
+				91BB70872AB306DB00E7A83A /* HMSPeerModel-Base-Actions.swift in Sources */,
+				91BB70882AB306DB00E7A83A /* HMSRoomModel-Base-Actions.swift in Sources */,
+				91BB708A2AB306DB00E7A83A /* HMSRoomModel-Preview.swift in Sources */,
+				91BB70822AB306DB00E7A83A /* HMSRoomOptions.swift in Sources */,
+				91BB708F2AB306DB00E7A83A /* HMSPeerModel-Higher.swift in Sources */,
+				91BB70732AB306C300E7A83A /* HMSRoomModels.docc in Sources */,
+				91BB708D2AB306DB00E7A83A /* HMSRoomModel-Higher.swift in Sources */,
+				91BB708E2AB306DB00E7A83A /* HMSTrackModel.swift in Sources */,
+				91BB707E2AB306DB00E7A83A /* HMSTrackModel-Base-Actions.swift in Sources */,
+				91BB708C2AB306DB00E7A83A /* HMSPeerModel-Base.swift in Sources */,
+				91BB708B2AB306DB00E7A83A /* HMSRoomModels.swift in Sources */,
+				91BB70862AB306DB00E7A83A /* SessionMetadata.swift in Sources */,
+				91BB70812AB306DB00E7A83A /* HMSPeerModel-Internal-updates.swift in Sources */,
+				91BB70802AB306DB00E7A83A /* HMSRoomModel-Internal-Callbacks.swift in Sources */,
+				91BB707F2AB306DB00E7A83A /* HMSPeerModel.swift in Sources */,
+				91BB70892AB306DB00E7A83A /* PeerMetadata.swift in Sources */,
+				91BB707D2AB306DB00E7A83A /* HMSPeerModel-Preview.swift in Sources */,
+				91BB70852AB306DB00E7A83A /* HMSChatModels.swift in Sources */,
+				91BB70842AB306DB00E7A83A /* HMSRoomModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1596,6 +1705,11 @@
 			isa = PBXTargetDependency;
 			target = 875F40C92AB1AA4D00904307 /* Screenshare */;
 			targetProxy = 875F40D12AB1AA4D00904307 /* PBXContainerItemProxy */;
+		};
+		91BB70762AB306C300E7A83A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 91BB706E2AB306C300E7A83A /* HMSRoomModels */;
+			targetProxy = 91BB70752AB306C300E7A83A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1903,6 +2017,78 @@
 			};
 			name = Release;
 		};
+		91BB707A2AB306C300E7A83A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 5N85PP82A9;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.home.perstest.HMSRoomModels;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		91BB707B2AB306C300E7A83A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 5N85PP82A9;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.home.perstest.HMSRoomModels;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1942,17 +2128,18 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		91BB70792AB306C300E7A83A /* Build configuration list for PBXNativeTarget "HMSRoomModels" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91BB707A2AB306C300E7A83A /* Debug */,
+				91BB707B2AB306C300E7A83A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		875F3A6F2AB19EA800904307 /* XCRemoteSwiftPackageReference "100ms-roomkit-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/100mslive/100ms-roomkit-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		875F40D82AB1AA6800904307 /* XCRemoteSwiftPackageReference "100ms-ios-broadcast-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/100mslive/100ms-ios-broadcast-sdk.git";
@@ -1961,19 +2148,41 @@
 				minimumVersion = 0.0.9;
 			};
 		};
+		91BB70602AB3056C00E7A83A /* XCRemoteSwiftPackageReference "webrtc-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/100mslive/webrtc-ios";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		91BB70912AB307E800E7A83A /* XCRemoteSwiftPackageReference "100ms-ios-hls-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/100mslive/100ms-ios-hls-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.2;
+			};
+		};
+		91BB70942AB3087A00E7A83A /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+		91BB70972AB308C000E7A83A /* XCRemoteSwiftPackageReference "Popovers" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/100mslive/Popovers";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		875F3A702AB19EA800904307 /* HMSRoomKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 875F3A6F2AB19EA800904307 /* XCRemoteSwiftPackageReference "100ms-roomkit-ios" */;
-			productName = HMSRoomKit;
-		};
-		875F3D182AB1A40A00904307 /* HMSRoomKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 875F3A6F2AB19EA800904307 /* XCRemoteSwiftPackageReference "100ms-roomkit-ios" */;
-			productName = HMSRoomKit;
-		};
 		875F40D92AB1AA6800904307 /* HMSBroadcastExtensionSDK */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 875F40D82AB1AA6800904307 /* XCRemoteSwiftPackageReference "100ms-ios-broadcast-sdk" */;
@@ -1983,6 +2192,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 875F40D82AB1AA6800904307 /* XCRemoteSwiftPackageReference "100ms-ios-broadcast-sdk" */;
 			productName = HMSBroadcastExtensionSDK;
+		};
+		91BB70612AB3056C00E7A83A /* WebRTC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 91BB70602AB3056C00E7A83A /* XCRemoteSwiftPackageReference "webrtc-ios" */;
+			productName = WebRTC;
+		};
+		91BB70922AB307E800E7A83A /* HMSHLSPlayerSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 91BB70912AB307E800E7A83A /* XCRemoteSwiftPackageReference "100ms-ios-hls-sdk" */;
+			productName = HMSHLSPlayerSDK;
+		};
+		91BB70952AB3087A00E7A83A /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 91BB70942AB3087A00E7A83A /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
+		91BB70982AB308C000E7A83A /* Popovers */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 91BB70972AB308C000E7A83A /* XCRemoteSwiftPackageReference "Popovers" */;
+			productName = Popovers;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

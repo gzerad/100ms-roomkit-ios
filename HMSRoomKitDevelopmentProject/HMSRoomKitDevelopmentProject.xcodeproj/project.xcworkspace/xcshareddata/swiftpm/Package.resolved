@@ -10,21 +10,21 @@
       }
     },
     {
-      "identity" : "100ms-roomkit-ios",
+      "identity" : "100ms-ios-hls-sdk",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/100mslive/100ms-roomkit-ios",
+      "location" : "https://github.com/100mslive/100ms-ios-hls-sdk",
       "state" : {
-        "revision" : "5697c2f116238dfa1dced05932c95ef05028a64b",
-        "version" : "1.0.0"
+        "revision" : "5fc7b7e3ecaa5733cc3f50e65fd3442390117898",
+        "version" : "0.0.2"
       }
     },
     {
-      "identity" : "100ms-roomkit-models-ios",
+      "identity" : "lottie-spm",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/100mslive/100ms-roomkit-models-ios",
+      "location" : "https://github.com/airbnb/lottie-spm.git",
       "state" : {
-        "revision" : "968e2f0ebbfff1c268cf6a849b31b21d380e4286",
-        "version" : "1.0.0"
+        "revision" : "60ea4f82fba8b4cb21a75665a889e86ed4d81c6e",
+        "version" : "4.2.0"
       }
     },
     {
@@ -34,6 +34,15 @@
       "state" : {
         "revision" : "f9743225a3d1b8acf080be0b16c8b288588269dc",
         "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "webrtc-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/100mslive/webrtc-ios",
+      "state" : {
+        "branch" : "main",
+        "revision" : "8d4dd56c3f86cfe52c6d19cd001d64b810f31fa5"
       }
     }
   ],
