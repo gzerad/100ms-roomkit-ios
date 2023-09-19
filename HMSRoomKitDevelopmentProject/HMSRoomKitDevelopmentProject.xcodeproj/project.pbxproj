@@ -193,6 +193,7 @@
 		87E669B22AB4EEBD00073016 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 87E669B12AB4EEBD00073016 /* Lottie */; };
 		87E669B52AB4F02600073016 /* Popovers in Frameworks */ = {isa = PBXBuildFile; productRef = 87E669B42AB4F02600073016 /* Popovers */; };
 		87E669B72AB4F1CD00073016 /* HMSRoomModels in Frameworks */ = {isa = PBXBuildFile; productRef = 87E669B62AB4F1CD00073016 /* HMSRoomModels */; };
+		9171385C2ABB0231003D214E /* HMSLoadMoreButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917138592ABB01B1003D214E /* HMSLoadMoreButton.swift */; };
 		87F2FEAB2ABD75FB00FB62C2 /* RoomStatesExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F2FEAA2ABD75FB00FB62C2 /* RoomStatesExample.swift */; };
 /* End PBXBuildFile section */
 
@@ -407,6 +408,7 @@
 		87A4080E2ABB00C700FF8700 /* JoiningView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JoiningView.swift; path = ../../HMSRoomKitExample/HMSRoomKitExample/JoiningView.swift; sourceTree = "<group>"; };
 		87A4080F2ABB00C700FF8700 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = ../../HMSRoomKitExample/HMSRoomKitExample/ContentView.swift; sourceTree = "<group>"; };
 		87A408122ABB012000FF8700 /* SampleHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SampleHandler.swift; path = ../../HMSRoomKitExample/Screenshare/SampleHandler.swift; sourceTree = "<group>"; };
+		917138592ABB01B1003D214E /* HMSLoadMoreButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMSLoadMoreButton.swift; sourceTree = "<group>"; };
 		87B1D4162AB81FD8001EBFA7 /* DevelopmentPlayground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevelopmentPlayground.swift; sourceTree = "<group>"; };
 		87F2FEAA2ABD75FB00FB62C2 /* RoomStatesExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomStatesExample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -683,6 +685,7 @@
 				8781CF632AB9C95A006FB9C7 /* HMSAirplayButton.swift */,
 				8781CF642AB9C95A006FB9C7 /* HMSCancelButton.swift */,
 				8781CF652AB9C95A006FB9C7 /* HMSNewMessagesButton.swift */,
+				917138592ABB01B1003D214E /* HMSLoadMoreButton.swift */,
 				8781CF662AB9C95A006FB9C7 /* End Call */,
 				8781CF6E2AB9C95A006FB9C7 /* HMSChangeNameView.swift */,
 				8781CF6F2AB9C95A006FB9C7 /* HMSStopRecordingView.swift */,
@@ -1214,6 +1217,7 @@
 				8781CFFE2AB9C95A006FB9C7 /* HMSMessageOptionsView.swift in Sources */,
 				8781D07D2AB9C9F3006FB9C7 /* HMSPeerModel.swift in Sources */,
 				8781D0332AB9C95A006FB9C7 /* ConferencingComponentType.swift in Sources */,
+				9171385C2ABB0231003D214E /* HMSLoadMoreButton.swift in Sources */,
 				8781CFE42AB9C95A006FB9C7 /* HMSWifiSignalView0.swift in Sources */,
 				8781CFCA2AB9C95A006FB9C7 /* HMSDivider.swift in Sources */,
 				8781CFE62AB9C95A006FB9C7 /* HMSWifiSignalView2.swift in Sources */,

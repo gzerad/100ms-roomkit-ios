@@ -19,6 +19,27 @@ class PeerSectionViewModel: ObservableObject, Identifiable {
         self.expanded = true
     }
     
+    internal init(name: String, iterator: HMSObservablePeerListIterator, expanded: Bool = true) {
+        self.name = name
+        self.iterator = iterator
+        self.expanded = expanded
+        self.hasNext = true
+        self.peers = []
+        
+        iterator.$hasNext.assign(to: \.hasNext, on: self).store(in: &cancallables)
+        iterator.$isLoading.assign(to: \.isLoading, on: self).store(in: &cancallables)
+        
+        iterator.$peers.sink { newValue in
+            self.peers = newValue.map { PeerViewModel(peerModel: $0, onDemandEntry: true) }
+        }.store(in: &cancallables)
+    }
+    
+    private var iterator: HMSObservablePeerListIterator?
+    private var cancallables: Set<AnyCancellable> = []
+    var isOnDemand: Bool {
+        iterator != nil
+    }
+    
     typealias ID = String
     var id: String {
         name
@@ -33,20 +54,29 @@ class PeerSectionViewModel: ObservableObject, Identifiable {
     var count: Int {
         peers.count
     }
+    
     @Published var peers: [PeerViewModel]
+    @Published private(set) var hasNext: Bool = false
+    @Published private(set) var isLoading: Bool = false
+    
+    func loadNext() async throws {
+        try await iterator?.loadNext()
+    }
+
 }
 
 class PeerViewModel: ObservableObject, Identifiable {
-    internal init(peerModel: HMSPeerModel) {
+    internal init(peerModel: HMSPeerModel, onDemandEntry: Bool = false) {
         self.peerModel = peerModel
     }
     
     typealias ID = String
     var id: String {
-        peerModel.id + (raisedHandEntry ? "raised" : "")
+        peerModel.id + (raisedHandEntry ? "raised" : "") + (onDemandEntry ? "onDemand" : "")
     }
     
     var raisedHandEntry = false
+    var onDemandEntry = false
     var peerModel: HMSPeerModel
     var isLast = false
     var justJoined = false
@@ -88,7 +118,7 @@ class HMSParticipantListViewModel {
         return Array(roleSectionMap.values).filter { $0.count > 0 }
     }
     
-    static func makeSectionedPeers(from peers: [HMSPeerModel], roles: [RoleType], searchQuery: String) -> [PeerSectionViewModel] {
+    static func makeSectionedPeers(from peers: [HMSPeerModel], roles: [RoleType], offStageRoles: [String], searchQuery: String) -> [PeerSectionViewModel] {
         
         let roleSectionMap = roles.reduce(into: [String: PeerSectionViewModel]()) {
             let newSection = PeerSectionViewModel(name: $1.name)
@@ -114,7 +144,7 @@ class HMSParticipantListViewModel {
             value.peers.last?.isLast = true
         }
         
-        return Array(roleSectionMap.values).filter { $0.count > 0 }
+        return Array(roleSectionMap.values).filter { $0.count > 0 && !offStageRoles.contains($0.name) }
             .sorted {
                 let firstOrder = commonSortOrderMap[$0.name.lowercased()] ?? Int.max
                 let secondOrder = commonSortOrderMap[$1.name.lowercased()] ?? Int.max
@@ -125,10 +155,17 @@ class HMSParticipantListViewModel {
                 }
             }
     }
+    
+    @MainActor static func makeOnDemandSectionedPeers(from roomModel: HMSRoomModel, infoModel: HMSRoomInfoModel, searchQuery: String) -> [PeerSectionViewModel] {
+        let offStageRoles = infoModel.offStageRoles
+        
+        return offStageRoles.map { PeerSectionViewModel(name: $0, iterator: roomModel.getIterator(for: $0), expanded: expandStateCache[$0] ?? true) }
+    }
 }
 
 struct HMSParticipantListView: View {
     @EnvironmentObject var roomModel: HMSRoomModel
+    @EnvironmentObject var roomInfoModel: HMSRoomInfoModel
     @State var searchText: String = ""
     
     var body: some View {
@@ -144,10 +181,18 @@ struct HMSParticipantListView: View {
                         Spacer().frame(height: 16)
                     }
                     
-                    let sections = HMSParticipantListViewModel.makeSectionedPeers(from: roomModel.peerModels, roles: roomModel.roles, searchQuery: searchText)
+                    let sections = HMSParticipantListViewModel.makeSectionedPeers(from: roomModel.peerModels, roles: roomModel.roles, offStageRoles: roomModel.isLarge ? roomInfoModel.offStageRoles : [], searchQuery: searchText)
                     ForEach(sections) { peerSectionModel in
                         ParticipantSectionView(model: peerSectionModel)
                         Spacer().frame(height: 16)
+                    }
+                    
+                    if roomModel.isLarge && searchText.isEmpty {
+                        let onDemandSections = HMSParticipantListViewModel.makeOnDemandSectionedPeers(from: roomModel, infoModel: roomInfoModel, searchQuery: searchText)
+                        ForEach(onDemandSections) { peerSectionModel in
+                            ParticipantSectionView(model: peerSectionModel)
+                            Spacer().frame(height: 16)
+                        }
                     }
                 }
             }
@@ -155,19 +200,45 @@ struct HMSParticipantListView: View {
         }
         .padding(.horizontal, 16)
         .background(.surfaceDim, cornerRadius: 0, ignoringEdges: .all)
+        .onDisappear {
+            roomModel.resetIteratorCache()
+        }
     }
 }
 
 struct ParticipantSectionView: View {
     @ObservedObject var model: PeerSectionViewModel
+    @EnvironmentObject var currentTheme: HMSUITheme
     
     var body: some View {
-        ParticipantItemHeader(name: "\(model.name.capitalized) (\(model.count))", expanded: $model.expanded)
+        ParticipantItemHeader(name: "\(model.name.capitalized) \(model.isOnDemand ? "" : "(\(model.count))")", expanded: $model.expanded).onAppear() {
+            if model.peers.isEmpty && !model.isLoading {
+                Task {
+                    try await model.loadNext()
+                }
+            }
+        }
         if model.expanded {
             ForEach(model.peers) { peer in
                 ParticipantItem(model: peer, wrappedModel: peer.peerModel)
             }
+            if !model.isLoading && model.isOnDemand {
+                HStack {
+                    Spacer()
+                    HMSLoadMoreButton().onTapGesture {
+                        Task {
+                            try await model.loadNext()
+                        }
+                    }
+                    Spacer()
+                }.padding(EdgeInsets(top: 17, leading: 16, bottom: 17, trailing: 16))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(currentTheme.colorTheme.borderBright, lineWidth: 1).padding(EdgeInsets(top: -8, leading: 0, bottom: 0, trailing: 0))
+                    ).clipped()
+            }
         }
+            
     }
 }
 
