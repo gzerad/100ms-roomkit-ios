@@ -409,6 +409,7 @@
 		87A4080F2ABB00C700FF8700 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = ../../HMSRoomKitExample/HMSRoomKitExample/ContentView.swift; sourceTree = "<group>"; };
 		87A408122ABB012000FF8700 /* SampleHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SampleHandler.swift; path = ../../HMSRoomKitExample/Screenshare/SampleHandler.swift; sourceTree = "<group>"; };
 		917138592ABB01B1003D214E /* HMSLoadMoreButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMSLoadMoreButton.swift; sourceTree = "<group>"; };
+		91DDC1142ABDBCA000727F7D /* HMSObservablePeerListIterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSObservablePeerListIterator.swift; sourceTree = "<group>"; };
 		87B1D4162AB81FD8001EBFA7 /* DevelopmentPlayground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevelopmentPlayground.swift; sourceTree = "<group>"; };
 		87F2FEAA2ABD75FB00FB62C2 /* RoomStatesExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomStatesExample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -950,6 +951,7 @@
 				8781D0672AB9C9F3006FB9C7 /* HMSRoomModel-Internal-Callbacks.swift */,
 				8781D0682AB9C9F3006FB9C7 /* HMSPeerModel-Base-Actions.swift */,
 				8781D0692AB9C9F3006FB9C7 /* HMSPeerModel.swift */,
+				91DDC1142ABDBCA000727F7D /* HMSObservablePeerListIterator.swift */,
 			);
 			name = HMSRoomModels;
 			path = "../../100ms-roomkit-models-ios/Sources/HMSRoomModels";
