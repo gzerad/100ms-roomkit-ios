@@ -156,17 +156,27 @@ class HMSParticipantListViewModel {
             }
     }
     
-    @MainActor static func makeOnDemandSectionedPeers(from roomModel: HMSRoomModel, infoModel: HMSRoomInfoModel, searchQuery: String) -> [PeerSectionViewModel] {
-        let offStageRoles = infoModel.offStageRoles
-        
-        return offStageRoles.map { PeerSectionViewModel(name: $0, iterator: roomModel.getIterator(for: $0), expanded: expandStateCache[$0] ?? true) }
+    @MainActor static func makeOnDemandSectionedPeers(from iterators: [HMSObservablePeerListIterator], searchQuery: String) -> [PeerSectionViewModel] {
+        return iterators.map { PeerSectionViewModel(name: $0.options.filterByRoleName ?? "", iterator: $0, expanded: expandStateCache[$0.options.filterByRoleName ?? ""] ?? true) }
     }
 }
 
 struct HMSParticipantListView: View {
     @EnvironmentObject var roomModel: HMSRoomModel
     @EnvironmentObject var roomInfoModel: HMSRoomInfoModel
-    @State var searchText: String = ""
+    @State private var searchText: String = ""
+    @State private var iterators = [HMSObservablePeerListIterator]()
+    
+    let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+    
+    func refreshIterators() async throws {
+        guard roomModel.isLarge else { return }
+        let newIterators = roomInfoModel.offStageRoles.map { roomModel.getIterator(for: $0) }
+        for iterator in newIterators {
+            try await iterator.loadNext()
+        }
+        iterators = newIterators.filter { !$0.peers.isEmpty }
+    }
     
     var body: some View {
         VStack(spacing: 16) {
@@ -187,21 +197,29 @@ struct HMSParticipantListView: View {
                         Spacer().frame(height: 16)
                     }
                     
-                    if roomModel.isLarge && searchText.isEmpty {
-                        let onDemandSections = HMSParticipantListViewModel.makeOnDemandSectionedPeers(from: roomModel, infoModel: roomInfoModel, searchQuery: searchText)
-                        ForEach(onDemandSections) { peerSectionModel in
-                            ParticipantSectionView(model: peerSectionModel)
+                    if searchText.isEmpty {
+                        ForEach(iterators, id: \.options.filterByRoleName) { iterator in
+                            let roleName = iterator.options.filterByRoleName ?? ""
+                            let isExpanded = HMSParticipantListViewModel.expandStateCache[roleName] ?? true
+                            let model = PeerSectionViewModel(name: roleName, iterator: iterator, expanded: isExpanded)
+                            ParticipantSectionView(model: model)
                             Spacer().frame(height: 16)
                         }
                     }
                 }
             }
-            
         }
         .padding(.horizontal, 16)
         .background(.surfaceDim, cornerRadius: 0, ignoringEdges: .all)
-        .onDisappear {
-            roomModel.resetIteratorCache()
+        .onReceive(timer) { timer in
+            Task {
+                try await refreshIterators()
+            }
+        }
+        .onAppear() {
+            Task {
+                try await refreshIterators()
+            }
         }
     }
 }
