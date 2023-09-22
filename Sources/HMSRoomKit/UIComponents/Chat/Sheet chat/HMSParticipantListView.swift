@@ -18,20 +18,23 @@ class PeerSectionViewModel: ObservableObject, Identifiable {
         self.name = name
         self.peers = []
         self.expanded = true
+        self.isInfiniteScrollEnabled = false
     }
     
-    internal init(name: String, iterator: HMSObservablePeerListIterator, expanded: Bool = true) {
+    internal init(name: String, iterator: HMSObservablePeerListIterator, expanded: Bool = true, isInfiniteScrollEnabled: Bool = false) {
         self.name = name
         self.iterator = iterator
         self.expanded = expanded
         self.hasNext = true
         self.peers = []
+        self.isInfiniteScrollEnabled = isInfiniteScrollEnabled
         
         iterator.$hasNext.assign(to: \.hasNext, on: self).store(in: &cancallables)
         iterator.$isLoading.assign(to: \.isLoading, on: self).store(in: &cancallables)
         
         iterator.$peers.sink { newValue in
             self.peers = newValue.map { PeerViewModel(peerModel: $0, onDemandEntry: true) }
+            self.peers.last?.isLast = true
         }.store(in: &cancallables)
     }
     
@@ -60,7 +63,10 @@ class PeerSectionViewModel: ObservableObject, Identifiable {
     @Published private(set) var hasNext: Bool = false
     @Published private(set) var isLoading: Bool = false
     
+    let isInfiniteScrollEnabled: Bool
+    
     func loadNext() async throws {
+        guard iterator?.isLoading == false else { return }
         try await iterator?.loadNext()
     }
 
@@ -159,6 +165,42 @@ class HMSParticipantListViewModel {
     }
 }
 
+struct HMSParticipantRoleListView: View {
+    @EnvironmentObject var roomModel: HMSRoomModel
+    @EnvironmentObject var roomInfoModel: HMSRoomInfoModel
+    var roleName: String
+    
+    @State private var iterator: HMSObservablePeerListIterator
+    
+    internal init(roleName: String, iterator: HMSObservablePeerListIterator) {
+        self.roleName = roleName
+        self.iterator = iterator
+    }
+    
+    var body: some View {
+        VStack(spacing: 16) {
+            ScrollView {
+                LazyVStack(spacing: 0) {
+                    let roleName = iterator.options.filterByRoleName ?? ""
+                    let isExpanded = HMSParticipantListViewModel.expandStateCache[roleName] ?? true
+                    let model = PeerSectionViewModel(name: roleName, iterator: iterator, expanded: isExpanded, isInfiniteScrollEnabled: true)
+                    ParticipantSectionView(model: model)
+                    Spacer().frame(height: 16)
+                }
+            }
+        }
+        .padding(.horizontal, 16)
+        .background(.surfaceDim, cornerRadius: 0, ignoringEdges: .all)
+        .onAppear() {
+            Task {
+                try await iterator.loadNext()
+            }
+        }
+    }
+    
+
+}
+
 struct HMSParticipantListView: View {
     @EnvironmentObject var roomModel: HMSRoomModel
     @EnvironmentObject var roomInfoModel: HMSRoomInfoModel
@@ -228,28 +270,36 @@ struct HMSParticipantListView: View {
 struct ParticipantSectionView: View {
     @ObservedObject var model: PeerSectionViewModel
     @EnvironmentObject var currentTheme: HMSUITheme
+    @EnvironmentObject var roomModel: HMSRoomModel
     
     var body: some View {
-        ParticipantItemHeader(name: "\(model.name.capitalized) \(model.isOnDemand ? "" : "(\(model.count))")", expanded: $model.expanded).onAppear() {
-            if model.peers.isEmpty && !model.isLoading {
-                Task {
-                    try await model.loadNext()
-                }
+        ParticipantItemHeader(name: "\(model.name.capitalized) \(model.isOnDemand ? "" : "(\(model.count))")", expanded: $model.expanded, isExpandEnabled: !model.isInfiniteScrollEnabled).onAppear {
+            guard model.isInfiniteScrollEnabled else { return }
+            Task {
+                try await model.loadNext()
             }
         }
         if model.expanded {
             ForEach(model.peers) { peer in
-                ParticipantItem(model: peer, wrappedModel: peer.peerModel)
+                ParticipantItem(model: peer, wrappedModel: peer.peerModel).onAppear {
+                    guard peer.isLast && model.isInfiniteScrollEnabled else { return }
+                    Task {
+                        try await model.loadNext()
+                    }
+                }
             }
-            if !model.isLoading && model.isOnDemand {
+            if model.isOnDemand && !model.isInfiniteScrollEnabled {
                 HStack {
                     Spacer()
-                    HMSLoadMoreButton().onTapGesture {
-                        Task {
-                            try await model.loadNext()
+                    NavigationLink {
+                        HMSParticipantRoleListView(roleName: model.name, iterator: roomModel.getIterator(for: model.name, limit: 40))
+                    } label: {
+                        HStack {
+                            Text("View All").font(.body2Regular14).foreground(.onSurfaceHigh)
+                            Image(assetName: "back").foreground(.onSurfaceHigh)
+                                .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
                         }
                     }
-                    Spacer()
                 }.padding(EdgeInsets(top: 17, leading: 16, bottom: 17, trailing: 16))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
@@ -265,17 +315,20 @@ struct ParticipantItemHeader: View {
     @EnvironmentObject var currentTheme: HMSUITheme
     var name: String
     @Binding var expanded: Bool
+    var isExpandEnabled: Bool
     
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 16) {
                 Text(name).font(.subtitle2Semibold14).foreground(.onSurfaceMedium).padding(.vertical, 14)
-                Spacer()                
-                Image(assetName: "chevron-up")
-                    .foreground(.onSurfaceHigh)
-                    .rotation3DEffect(.degrees(180), axis: (x: !expanded ? 1 : 0, y: 0, z: 0))
-                    .padding(.horizontal, 5)
-                    .padding(.vertical, 8)
+                Spacer()
+                if isExpandEnabled {
+                    Image(assetName: "chevron-up")
+                        .foreground(.onSurfaceHigh)
+                        .rotation3DEffect(.degrees(180), axis: (x: !expanded ? 1 : 0, y: 0, z: 0))
+                        .padding(.horizontal, 5)
+                        .padding(.vertical, 8)
+                }
             }
             .padding(.horizontal, 16)
             .overlay(
@@ -284,6 +337,7 @@ struct ParticipantItemHeader: View {
             )
             HMSDivider(color: currentTheme.colorTheme.borderDefault).opacity(expanded ? 1 : 0)
         }.clipped().onTapGesture {
+            guard isExpandEnabled else { return }
             expanded = !expanded
         }
     }
