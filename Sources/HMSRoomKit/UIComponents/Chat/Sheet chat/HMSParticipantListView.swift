@@ -12,6 +12,7 @@ import HMSSDK
 import Combine
 import HMSRoomModels
 
+@MainActor
 class PeerSectionViewModel: ObservableObject, Identifiable {
     internal init(name: String) {
         self.name = name
@@ -41,7 +42,7 @@ class PeerSectionViewModel: ObservableObject, Identifiable {
     }
     
     typealias ID = String
-    var id: String {
+    nonisolated var id: String {
         name
     }
     
@@ -50,7 +51,7 @@ class PeerSectionViewModel: ObservableObject, Identifiable {
             HMSParticipantListViewModel.expandStateCache[name] = expanded
         }
     }
-    var name: String
+    let name: String
     var count: Int {
         peers.count
     }
@@ -82,6 +83,7 @@ class PeerViewModel: ObservableObject, Identifiable {
     var justJoined = false
 }
 
+@MainActor
 class HMSParticipantListViewModel {
     static let commonSortOrderMap = [handRaisedSectionName.lowercased(), "host", "guest", "teacher", "student", "viewer"].enumerated().reduce(into: [String: Int]()) {
         $0[$1.1] = $1.0
@@ -155,10 +157,6 @@ class HMSParticipantListViewModel {
                 }
             }
     }
-    
-    @MainActor static func makeOnDemandSectionedPeers(from iterators: [HMSObservablePeerListIterator], searchQuery: String) -> [PeerSectionViewModel] {
-        return iterators.map { PeerSectionViewModel(name: $0.options.filterByRoleName ?? "", iterator: $0, expanded: expandStateCache[$0.options.filterByRoleName ?? ""] ?? true) }
-    }
 }
 
 struct HMSParticipantListView: View {
@@ -172,9 +170,12 @@ struct HMSParticipantListView: View {
     func refreshIterators() async throws {
         guard roomModel.isLarge else { return }
         let newIterators = roomInfoModel.offStageRoles.map { roomModel.getIterator(for: $0) }
-        for iterator in newIterators {
-            try await iterator.loadNext()
+        await withThrowingTaskGroup(of: Void.self) { group in
+            for iterator in newIterators {
+                group.addTask { try await iterator.loadNext() }
+            }
         }
+             
         iterators = newIterators.filter { !$0.peers.isEmpty }
     }
     
