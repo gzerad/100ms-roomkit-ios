@@ -84,8 +84,8 @@ struct HMSChatParticipantToggleView: View {
                     case .participants:
                         HMSParticipantListView()
                     }
-                }}
-            .background(.surfaceDim, cornerRadius: 0)
+                }.background(.surfaceDim, cornerRadius: 0)
+            }
         }
     }
 }
