@@ -28,11 +28,6 @@ class PeerSectionViewModel: ObservableObject, Identifiable {
         name
     }
     
-    @Published var expanded: Bool {
-        didSet {
-            HMSParticipantListViewModel.expandStateCache[name] = expanded
-        }
-    }
     let name: String
     var count: Int {
         iterator?.totalCount ?? peers.count
@@ -51,14 +46,12 @@ class PeerSectionViewModel: ObservableObject, Identifiable {
     internal init(name: String) {
         self.name = name
         self.peers = []
-        self.expanded = true
         self.isInfiniteScrollEnabled = false
     }
     
-    internal init(name: String, iterator: HMSObservablePeerListIterator, expanded: Bool = true, isInfiniteScrollEnabled: Bool = false) {
+    internal init(name: String, iterator: HMSObservablePeerListIterator, isInfiniteScrollEnabled: Bool = false) {
         self.name = name
         self.iterator = iterator
-        self.expanded = expanded
         self.hasNext = true
         self.peers = []
         self.isInfiniteScrollEnabled = isInfiniteScrollEnabled
@@ -104,14 +97,12 @@ class HMSParticipantListViewModel {
         $0[$1.1] = $1.0
     }
     
-    static var expandStateCache = [String: Bool]()
     static let handRaisedSectionName = "Hand Raised"
     
     static func makeDynamicSectionedPeers(from peers: [HMSPeerModel], searchQuery: String) -> [PeerSectionViewModel] {
 
         let handRaisedSection = PeerSectionViewModel(name: handRaisedSectionName)
         let roleSectionMap = [handRaisedSectionName: handRaisedSection]
-        handRaisedSection.expanded = expandStateCache[handRaisedSectionName] ?? true
         
         var peerMap = [handRaisedSectionName : [PeerViewModel]()]
         
@@ -140,7 +131,6 @@ class HMSParticipantListViewModel {
         let roleSectionMap = roles.reduce(into: [String: PeerSectionViewModel]()) {
             let newSection = PeerSectionViewModel(name: $1.name)
             $0[$1.name] = newSection
-            newSection.expanded = expandStateCache[$1.name] ?? true
         }
         
         var peerMap = roles.reduce(into: [String: [PeerViewModel]]()) {
@@ -193,9 +183,8 @@ struct HMSParticipantRoleListView: View {
             ScrollView {
                 LazyVStack(spacing: 0) {
                     let roleName = iterator.options.filterByRoleName ?? ""
-                    let isExpanded = HMSParticipantListViewModel.expandStateCache[roleName] ?? true
-                    let model = PeerSectionViewModel(name: roleName, iterator: iterator, expanded: isExpanded, isInfiniteScrollEnabled: true)
-                    ParticipantSectionView(model: model)
+                    let model = PeerSectionViewModel(name: roleName, iterator: iterator, isInfiniteScrollEnabled: true)
+                    ParticipantSectionView(model: model, isExpanded: true) {}
                     Spacer().frame(height: 16)
                 }
             }
@@ -218,10 +207,11 @@ struct HMSParticipantListView: View {
     @EnvironmentObject var roomInfoModel: HMSRoomInfoModel
     @State private var searchText: String = ""
     @State private var iterators = [HMSObservablePeerListIterator]()
+    @State private var expandedRoleName = ""
     
-    let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+    private let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     
-    func refreshIterators() async throws {
+    private func refreshIterators() async throws {
         guard roomModel.isLarge else { return }
         let newIterators = roomInfoModel.offStageRoles.map { roomModel.getIterator(for: $0, limit: PeerSectionViewModel.initialFetchLimit) }
         await withThrowingTaskGroup(of: Void.self) { group in
@@ -233,6 +223,10 @@ struct HMSParticipantListView: View {
         iterators = newIterators.filter { !$0.peers.isEmpty }
     }
     
+    private func toggleExpanded(_ name: String) {
+        expandedRoleName = expandedRoleName == name ? "" : name
+    }
+    
     var body: some View {
         VStack(spacing: 16) {
             HStack(spacing: 8) {
@@ -242,22 +236,27 @@ struct HMSParticipantListView: View {
                 LazyVStack(spacing: 0) {
                     let dynamicSections = HMSParticipantListViewModel.makeDynamicSectionedPeers(from: roomModel.remotePeersWithRaisedHand, searchQuery: searchText)
                     ForEach(dynamicSections) { peerSectionModel in
-                        ParticipantSectionView(model: peerSectionModel)
+                        ParticipantSectionView(model: peerSectionModel, isExpanded: expandedRoleName == peerSectionModel.name) {
+                            toggleExpanded(peerSectionModel.name)
+                        }
                         Spacer().frame(height: 16)
                     }
                     
                     let sections = HMSParticipantListViewModel.makeSectionedPeers(from: roomModel.peerModels, roles: roomModel.roles, offStageRoles: roomModel.isLarge ? roomInfoModel.offStageRoles : [], searchQuery: searchText)
                     ForEach(sections) { peerSectionModel in
-                        ParticipantSectionView(model: peerSectionModel)
+                        ParticipantSectionView(model: peerSectionModel, isExpanded: expandedRoleName == peerSectionModel.name) {
+                            toggleExpanded(peerSectionModel.name)
+                        }
                         Spacer().frame(height: 16)
                     }
                     
                     if searchText.isEmpty {
                         ForEach(iterators, id: \.options.filterByRoleName) { iterator in
                             let roleName = iterator.options.filterByRoleName ?? ""
-                            let isExpanded = HMSParticipantListViewModel.expandStateCache[roleName] ?? true
-                            let model = PeerSectionViewModel(name: roleName, iterator: iterator, expanded: isExpanded)
-                            ParticipantSectionView(model: model)
+                            let model = PeerSectionViewModel(name: roleName, iterator: iterator)
+                            ParticipantSectionView(model: model,isExpanded: expandedRoleName == roleName) {
+                                toggleExpanded(roleName)
+                            }
                             Spacer().frame(height: 16)
                         }
                     }
@@ -284,9 +283,12 @@ struct ParticipantSectionView: View {
     @EnvironmentObject var currentTheme: HMSUITheme
     @EnvironmentObject var roomModel: HMSRoomModel
     
+    var isExpanded: Bool
+    var toggleExpanded: (()->Void)
+    
     var body: some View {
-        ParticipantItemHeader(name: "\(model.name.capitalized) (\(model.count))", expanded: $model.expanded, isExpandEnabled: !model.isInfiniteScrollEnabled)
-        if model.expanded {
+        ParticipantItemHeader(name: "\(model.name.capitalized) (\(model.count))", isExpanded: isExpanded, toggleExpanded: toggleExpanded, isExpandEnabled: !model.isInfiniteScrollEnabled)
+        if isExpanded {
             ForEach(model.peers) { peer in
                 ParticipantItem(model: peer, wrappedModel: peer.peerModel, isLast: peer.isLast && !model.hasNext).onAppear {
                     guard peer.isLast && model.isInfiniteScrollEnabled else { return }
@@ -332,7 +334,8 @@ struct ParticipantSectionView: View {
 struct ParticipantItemHeader: View {
     @EnvironmentObject var currentTheme: HMSUITheme
     var name: String
-    @Binding var expanded: Bool
+    var isExpanded: Bool
+    var toggleExpanded: (()->Void)
     var isExpandEnabled: Bool
     
     var body: some View {
@@ -343,7 +346,7 @@ struct ParticipantItemHeader: View {
                 if isExpandEnabled {
                     Image(assetName: "chevron-up")
                         .foreground(.onSurfaceHigh)
-                        .rotation3DEffect(.degrees(180), axis: (x: !expanded ? 1 : 0, y: 0, z: 0))
+                        .rotation3DEffect(.degrees(180), axis: (x: !isExpanded ? 1 : 0, y: 0, z: 0))
                         .padding(.horizontal, 5)
                         .padding(.vertical, 8)
                 }
@@ -351,12 +354,12 @@ struct ParticipantItemHeader: View {
             .padding(.horizontal, 16)
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(currentTheme.colorTheme.borderBright, lineWidth: 1).padding(EdgeInsets(top: 0, leading: 0, bottom: expanded ? -8 : 0, trailing: 0))
+                    .stroke(currentTheme.colorTheme.borderBright, lineWidth: 1).padding(EdgeInsets(top: 0, leading: 0, bottom: isExpanded ? -8 : 0, trailing: 0))
             )
-            HMSDivider(color: currentTheme.colorTheme.borderDefault).opacity(expanded ? 1 : 0)
+            HMSDivider(color: currentTheme.colorTheme.borderDefault).opacity(isExpanded ? 1 : 0)
         }.clipped().onTapGesture {
             guard isExpandEnabled else { return }
-            expanded = !expanded
+            toggleExpanded()
         }
     }
 }
