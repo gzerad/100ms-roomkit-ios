@@ -16,7 +16,7 @@ struct HMSChatParticipantToggleView: View {
     
     @EnvironmentObject var roomModel: HMSRoomModel
     @EnvironmentObject var currentTheme: HMSUITheme
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     
     enum Pane: String, CaseIterable {
         case chat
@@ -72,7 +72,7 @@ struct HMSChatParticipantToggleView: View {
                         }
                         
                         Button {
-                            presentationMode.wrappedValue.dismiss()
+                            dismiss()
                         } label: {
                             Image(systemName: "xmark").foreground(.onSurfaceMedium)
                         }
@@ -82,7 +82,7 @@ struct HMSChatParticipantToggleView: View {
                     case .chat:
                         HMSChatScreen()
                     case .participants:
-                        HMSParticipantListView()
+                        HMSParticipantListView().environment(\.mainSheetDismiss, { dismiss() })
                     }
                 }.background(.surfaceDim, cornerRadius: 0)
             }
