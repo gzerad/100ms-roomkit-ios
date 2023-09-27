@@ -107,7 +107,7 @@ class HMSParticipantListViewModel {
         var peerMap = [handRaisedSectionName : [PeerViewModel]()]
         
         peers.forEach { peer in
-            if !searchQuery.isEmpty, !peer.name.lowercased().contains(searchQuery.lowercased()) {
+            if !searchQuery.isEmpty, !peer.name.localizedCaseInsensitiveContains(searchQuery) {
                 return
             }
                 
@@ -138,7 +138,7 @@ class HMSParticipantListViewModel {
         }
         
         peers.forEach { peer in
-            if !searchQuery.isEmpty, !peer.name.lowercased().contains(searchQuery.lowercased()) {
+            if !searchQuery.isEmpty, !peer.name.localizedCaseInsensitiveContains(searchQuery) {
                 return
             }
             
@@ -168,28 +168,31 @@ struct HMSParticipantRoleListView: View {
     @EnvironmentObject var roomModel: HMSRoomModel
     @EnvironmentObject var roomInfoModel: HMSRoomInfoModel
     @Environment(\.dismiss) var dismiss
+    @Environment(\.mainSheetDismiss) var sheetDismiss
+    
     var roleName: String
     
     @State var iterator: HMSObservablePeerListIterator
-     
+    @State var searchText: String = ""
     
     var body: some View {
-        VStack(spacing: 16) {
-            HMSOptionsHeaderView(title: "Participant List", showsBackButton: true, onClose: {
-                dismiss()
+        VStack(spacing: 0) {
+            HMSOptionsHeaderView(title: "Participant List", showsBackButton: true, showsDivider: false, onClose: {
+                sheetDismiss()
             }, onBack: {
                 dismiss()
             })
+            HMSSearchField(searchText: $searchText, placeholder: "Search for participants").padding(.horizontal, 16)
+            Spacer(minLength: 16)
             ScrollView {
                 LazyVStack(spacing: 0) {
                     let roleName = iterator.options.filterByRoleName ?? ""
                     let model = PeerSectionViewModel(name: roleName, iterator: iterator, isInfiniteScrollEnabled: true)
-                    ParticipantSectionView(model: model, isExpanded: true) {}
+                    ParticipantSectionView(model: model, searchText: $searchText, isExpanded: true) {}
                     Spacer().frame(height: 16)
                 }
-            }
+            }.padding(.horizontal, 16)
         }
-        .padding(.horizontal, 16)
         .background(.surfaceDim, cornerRadius: 0, ignoringEdges: .all)
         .navigationBarHidden(true)
         .onAppear() {
@@ -201,6 +204,18 @@ struct HMSParticipantRoleListView: View {
     
 
 }
+
+struct MainSheetDismissKey: EnvironmentKey {
+    static var defaultValue: (() -> Void) = {}
+}
+
+extension EnvironmentValues {
+    var mainSheetDismiss: (() -> Void) {
+        get { self[MainSheetDismissKey.self] }
+        set { self[MainSheetDismissKey.self] = newValue }
+    }
+}
+
 
 struct HMSParticipantListView: View {
     @EnvironmentObject var roomModel: HMSRoomModel
@@ -236,7 +251,7 @@ struct HMSParticipantListView: View {
                 LazyVStack(spacing: 0) {
                     let dynamicSections = HMSParticipantListViewModel.makeDynamicSectionedPeers(from: roomModel.remotePeersWithRaisedHand, searchQuery: searchText)
                     ForEach(dynamicSections) { peerSectionModel in
-                        ParticipantSectionView(model: peerSectionModel, isExpanded: expandedRoleName == peerSectionModel.name) {
+                        ParticipantSectionView(model: peerSectionModel, searchText: .constant(""), isExpanded: expandedRoleName == peerSectionModel.name) {
                             toggleExpanded(peerSectionModel.name)
                         }
                         Spacer().frame(height: 16)
@@ -244,7 +259,7 @@ struct HMSParticipantListView: View {
                     
                     let sections = HMSParticipantListViewModel.makeSectionedPeers(from: roomModel.peerModels, roles: roomModel.roles, offStageRoles: roomModel.isLarge ? roomInfoModel.offStageRoles : [], searchQuery: searchText)
                     ForEach(sections) { peerSectionModel in
-                        ParticipantSectionView(model: peerSectionModel, isExpanded: expandedRoleName == peerSectionModel.name) {
+                        ParticipantSectionView(model: peerSectionModel, searchText: .constant(""), isExpanded: expandedRoleName == peerSectionModel.name) {
                             toggleExpanded(peerSectionModel.name)
                         }
                         Spacer().frame(height: 16)
@@ -254,7 +269,7 @@ struct HMSParticipantListView: View {
                         ForEach(iterators, id: \.options.filterByRoleName) { iterator in
                             let roleName = iterator.options.filterByRoleName ?? ""
                             let model = PeerSectionViewModel(name: roleName, iterator: iterator)
-                            ParticipantSectionView(model: model,isExpanded: expandedRoleName == roleName) {
+                            ParticipantSectionView(model: model, searchText: .constant(""), isExpanded: expandedRoleName == roleName) {
                                 toggleExpanded(roleName)
                             }
                             Spacer().frame(height: 16)
@@ -282,6 +297,9 @@ struct ParticipantSectionView: View {
     @ObservedObject var model: PeerSectionViewModel
     @EnvironmentObject var currentTheme: HMSUITheme
     @EnvironmentObject var roomModel: HMSRoomModel
+    @Environment(\.mainSheetDismiss) var sheetDismiss
+    
+    @Binding var searchText: String
     
     var isExpanded: Bool
     var toggleExpanded: (()->Void)
@@ -289,9 +307,12 @@ struct ParticipantSectionView: View {
     var body: some View {
         ParticipantItemHeader(name: "\(model.name.capitalized) (\(model.count))", isExpanded: isExpanded, toggleExpanded: toggleExpanded, isExpandEnabled: !model.isInfiniteScrollEnabled)
         if isExpanded {
-            ForEach(model.peers) { peer in
-                ParticipantItem(model: peer, wrappedModel: peer.peerModel, isLast: peer.isLast && !model.hasNext).onAppear {
-                    guard peer.isLast && model.isInfiniteScrollEnabled else { return }
+            let shouldShowLoader = model.hasNext && searchText.isEmpty
+            let peers = searchText.isEmpty ? model.peers : model.peers.filter({  $0.peerModel.name.localizedCaseInsensitiveContains(searchText)})
+            ForEach(peers) { peer in
+                let isLast = peer === peers.last && !shouldShowLoader
+                ParticipantItem(model: peer, wrappedModel: peer.peerModel, isLast: isLast).onAppear {
+                    guard searchText.isEmpty, peer.isLast && model.isInfiniteScrollEnabled else { return }
                     Task {
                         try await model.loadNext()
                     }
@@ -302,7 +323,7 @@ struct ParticipantSectionView: View {
                 HStack {
                     Spacer()
                     NavigationLink {
-                        HMSParticipantRoleListView(roleName: model.name, iterator: roomModel.getIterator(for: model.name, limit: PeerSectionViewModel.viewAllFetchLimit))
+                        HMSParticipantRoleListView(roleName: model.name, iterator: roomModel.getIterator(for: model.name, limit: PeerSectionViewModel.viewAllFetchLimit)).environment(\.mainSheetDismiss, sheetDismiss)
                     } label: {
                         HStack {
                             Text("View All").font(.body2Regular14).foreground(.onSurfaceHigh)
@@ -315,7 +336,7 @@ struct ParticipantSectionView: View {
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(currentTheme.colorTheme.borderBright, lineWidth: 1).padding(EdgeInsets(top: -8, leading: 0, bottom: 0, trailing: 0))
                     ).clipped()
-            } else if model.hasNext {
+            } else if model.hasNext && searchText.isEmpty {
                 HStack {
                     Spacer()
                     ProgressView()
