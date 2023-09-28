@@ -274,15 +274,29 @@ struct HMSParticipantListView: View {
             HStack(spacing: 8) {
                 HMSSearchField(searchText: $searchText, placeholder: "Search for participants")
             }
-            ScrollView {
-                LazyVStack(spacing: 0) {
-                    let sections = HMSParticipantListViewModel.makeSections(from: roomModel, infoModel: roomInfoModel, iterators: iterators, searchQuery: searchText)
-                    ForEach(sections) { peerSectionModel in
-                        ParticipantSectionView(model: peerSectionModel, searchText: .constant(""), isExpanded: expandedRoleName == peerSectionModel.name) {
-                            toggleExpanded(peerSectionModel.name)
+            let sections = HMSParticipantListViewModel.makeSections(from: roomModel, infoModel: roomInfoModel, iterators: iterators, searchQuery: searchText)
+            ZStack {
+                ScrollView {
+                    LazyVStack(spacing: 0) {
+                        
+                        ForEach(sections) { peerSectionModel in
+                            ParticipantSectionView(model: peerSectionModel, searchText: .constant(""), isExpanded: expandedRoleName == peerSectionModel.name) {
+                                toggleExpanded(peerSectionModel.name)
+                            }
+                            Spacer().frame(height: 16)
                         }
-                        Spacer().frame(height: 16)
                     }
+                }
+                if sections.isEmpty && !searchText.isEmpty {
+                    VStack(alignment: .center) {
+                        Spacer()
+                        VStack(spacing: 0) {
+                            Image(assetName: "search", renderingMode: .original).padding(.bottom, 24)
+                            Text("Too many participants").font(.heading6Semibold20).foreground(.onSurfaceHigh).padding(.bottom, 8)
+                            Text("With so many participants, our search can't pinpoint the name you're looking for.").font(.body2Regular14).foreground(.onSurfaceMedium)
+                        }
+                        Spacer()
+                    }.padding(.horizontal, 22)
                 }
             }
         }
