@@ -126,6 +126,33 @@ class HMSParticipantListViewModel {
         return Array(roleSectionMap.values).filter { $0.count > 0 }
     }
     
+    static func makeSections(from roomModel: HMSRoomModel, infoModel: HMSRoomInfoModel, iterators: [HMSObservablePeerListIterator], searchQuery: String) -> [PeerSectionViewModel] {
+        let dynamicSections = makeDynamicSectionedPeers(from: roomModel.remotePeersWithRaisedHand, searchQuery: searchQuery)
+        
+        let regularSections = makeSectionedPeers(from: roomModel.peerModels, roles: roomModel.roles, offStageRoles: roomModel.isLarge ? infoModel.offStageRoles : [], searchQuery: searchQuery)
+        
+        let iteratorSections = makeIteratorSections(iterators: iterators, searchQuery: searchQuery)
+        
+        return dynamicSections + regularSections + iteratorSections
+    }
+    
+    static func makeIteratorSections(iterators: [HMSObservablePeerListIterator], searchQuery: String) -> [PeerSectionViewModel] {
+        if !searchQuery.isEmpty {
+            var sections = [PeerSectionViewModel]()
+            iterators.forEach { iterator in
+                let peers = iterator.peers.filter { $0.name.localizedCaseInsensitiveContains(searchQuery) }
+                guard !peers.isEmpty else { return}
+                let model = PeerSectionViewModel(name: iterator.options.filterByRoleName ?? "")
+                model.peers = peers.map { PeerViewModel(peerModel: $0, onDemandEntry: true) }
+                sections.append(model)
+            }
+            return sections
+        } else {
+            return iterators.map { PeerSectionViewModel(name: $0.options.filterByRoleName ?? "", iterator: $0) }
+        }
+    }
+    
+    
     static func makeSectionedPeers(from peers: [HMSPeerModel], roles: [RoleType], offStageRoles: [String], searchQuery: String) -> [PeerSectionViewModel] {
         
         let roleSectionMap = roles.reduce(into: [String: PeerSectionViewModel]()) {
@@ -249,31 +276,12 @@ struct HMSParticipantListView: View {
             }
             ScrollView {
                 LazyVStack(spacing: 0) {
-                    let dynamicSections = HMSParticipantListViewModel.makeDynamicSectionedPeers(from: roomModel.remotePeersWithRaisedHand, searchQuery: searchText)
-                    ForEach(dynamicSections) { peerSectionModel in
-                        ParticipantSectionView(model: peerSectionModel, searchText: .constant(""), isExpanded: expandedRoleName == peerSectionModel.name) {
-                            toggleExpanded(peerSectionModel.name)
-                        }
-                        Spacer().frame(height: 16)
-                    }
-                    
-                    let sections = HMSParticipantListViewModel.makeSectionedPeers(from: roomModel.peerModels, roles: roomModel.roles, offStageRoles: roomModel.isLarge ? roomInfoModel.offStageRoles : [], searchQuery: searchText)
+                    let sections = HMSParticipantListViewModel.makeSections(from: roomModel, infoModel: roomInfoModel, iterators: iterators, searchQuery: searchText)
                     ForEach(sections) { peerSectionModel in
                         ParticipantSectionView(model: peerSectionModel, searchText: .constant(""), isExpanded: expandedRoleName == peerSectionModel.name) {
                             toggleExpanded(peerSectionModel.name)
                         }
                         Spacer().frame(height: 16)
-                    }
-                    
-                    if searchText.isEmpty {
-                        ForEach(iterators, id: \.options.filterByRoleName) { iterator in
-                            let roleName = iterator.options.filterByRoleName ?? ""
-                            let model = PeerSectionViewModel(name: roleName, iterator: iterator)
-                            ParticipantSectionView(model: model, searchText: .constant(""), isExpanded: expandedRoleName == roleName) {
-                                toggleExpanded(roleName)
-                            }
-                            Spacer().frame(height: 16)
-                        }
                     }
                 }
             }
@@ -281,6 +289,7 @@ struct HMSParticipantListView: View {
         .padding(.horizontal, 16)
         .background(.surfaceDim, cornerRadius: 0, ignoringEdges: .all)
         .onReceive(timer) { timer in
+            guard searchText.isEmpty else { return }
             Task {
                 try await refreshIterators()
             }
