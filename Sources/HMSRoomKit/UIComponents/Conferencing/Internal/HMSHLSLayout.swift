@@ -160,7 +160,7 @@ struct HMSHLSLayout: View {
     var expandedDescriptionPane: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Text("Description")
+                Text("About Session")
                     .font(.subtitle2Semibold16)
                     .foreground(.onSurfaceHigh)
                 Spacer()
